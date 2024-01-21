@@ -76,8 +76,8 @@ fun navigateToDestination(navController: NavHostController, index: Int, route: S
 }
 
 val items = listOf(
-    NavigationItem.Home,
     NavigationItem.Browse,
+    NavigationItem.Explore,
     NavigationItem.Notification,
     NavigationItem.More,
 )
@@ -91,17 +91,17 @@ sealed class NavigationItem(
     val hasNews: Boolean,
     val badgeCount: Int? = null
 ) {
-    object Home : NavigationItem(
-        route = "home",
-        title = "Home",
+    object Browse : NavigationItem(
+        route = "browse",
+        title = "Browse",
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
         hasNews = false
     )
 
-    object Browse : NavigationItem(
-        route = "browse",
-        title = "Browse",
+    object Explore : NavigationItem(
+        route = "explore",
+        title = "Explore",
         selectedIcon = Icons.Filled.List,
         unselectedIcon = Icons.Outlined.List,
         hasNews = true

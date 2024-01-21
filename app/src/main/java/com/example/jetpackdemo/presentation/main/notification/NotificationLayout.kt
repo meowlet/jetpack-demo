@@ -15,7 +15,7 @@ fun NotificationLayout() {
     }
 }
 @Composable
-fun BrowseLayout() {
+fun ExploreLayout() {
     Box (contentAlignment = Alignment.Center,
         modifier = Modifier.fillMaxSize()) {
         Text(text = "Browse")

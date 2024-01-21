@@ -13,10 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.jetpackdemo.core.HomeGraph
@@ -27,7 +23,10 @@ import com.example.jetpackdemo.presentation.main.home.components.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeLayout(navController: NavHostController, currentDestination: NavDestination?) {
+fun HomeLayout() {
+    val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     val isDetailPage = remember { mutableStateOf(false) }
 
@@ -61,7 +60,7 @@ fun HomeLayout(navController: NavHostController, currentDestination: NavDestinat
                 )
             )
         ) {
-            HomeGraph()
+            HomeGraph(navController = navController)
         }
     }
 }
