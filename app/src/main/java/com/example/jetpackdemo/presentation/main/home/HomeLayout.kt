@@ -2,7 +2,6 @@ package com.example.jetpackdemo.presentation.main.home
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -12,15 +11,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.jetpackdemo.core.NavGraph
+import com.example.jetpackdemo.core.HomeGraph
 import com.example.jetpackdemo.presentation.main.home.components.BottomBar
 import com.example.jetpackdemo.presentation.main.home.components.DetailPageTopBar
 //import com.example.jetpackdemo.core.HomeNav
@@ -28,31 +27,18 @@ import com.example.jetpackdemo.presentation.main.home.components.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeLayout() {
-    val navController = rememberNavController()
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+fun HomeLayout(navController: NavHostController, currentDestination: NavDestination?) {
 
-    // Biến trạng thái để kiểm tra xem trang hiện tại có phải là trang chi tiết hay không
     val isDetailPage = remember { mutableStateOf(false) }
 
-    // Cập nhật trạng thái khi trang thay đổi
     LaunchedEffect(currentDestination) {
         isDetailPage.value =
             currentDestination?.route == "fictionDetail/{id}/{name}/{description}/{status}"
     }
 
-    // Lưu trạng thái cuộn
-    val scrollState = rememberSaveable { mutableStateOf(0f) }
-
-    val homeScrollState = rememberScrollState()
-    val detailScrollState = rememberScrollState()
 
     val homeScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val detailScrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
-    // Rest of your code...
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -75,7 +61,7 @@ fun HomeLayout() {
                 )
             )
         ) {
-            com.example.jetpackdemo.core.NavGraph(navController = navController)
+            HomeGraph()
         }
     }
 }

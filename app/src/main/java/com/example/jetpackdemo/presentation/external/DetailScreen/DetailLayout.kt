@@ -13,18 +13,16 @@ import com.example.jetpackdemo.presentation.main.home.components.DetailPageTopBa
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailLayout() {
-    val navController = rememberNavController()
+fun DetailScreenLayout(id: String, name: String, description: String, status:String) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {DetailPageTopBar(navController, scrollBehavior)
-        }
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
     ) { innerPadding ->
         Surface(
         ) {
+            DetailLayout(id = id, name = name, description = description, status = status )
         }
     }
 }

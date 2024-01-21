@@ -139,5 +139,3 @@ fun DetailLayout(id: String, name: String, description: String, status: String) 
     }
 
 }
-
-
