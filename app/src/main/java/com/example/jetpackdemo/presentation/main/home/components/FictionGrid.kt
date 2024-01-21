@@ -47,7 +47,7 @@ fun FictionGrid(fictions: List<Fiction>, navController: NavHostController) {
                     .fillMaxSize()
                     .height(200.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .clickable { navController.navigate("${RootNavigationItem.DetailPage.route}/${fiction.id}/${fiction.title}/${fiction.description}/${fiction.status}") }
+                    .clickable { navController.navigate("${NavigationItem.Detail.route}/${fiction.id}/${fiction.title}/${fiction.description}/${fiction.status}") }
             ) {
                 Image(
                     painter = rememberAsyncImagePainter(

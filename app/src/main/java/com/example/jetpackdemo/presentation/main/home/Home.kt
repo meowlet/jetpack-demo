@@ -17,7 +17,7 @@ class Home : ComponentActivity() {
         setContent {
 
             TestTheme {
-                RootGraph()
+                HomeLayout()
             }
         }
     }

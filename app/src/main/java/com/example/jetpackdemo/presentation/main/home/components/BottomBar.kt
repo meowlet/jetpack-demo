@@ -48,7 +48,7 @@ fun BottomBar(navController: NavHostController, currentDestination: NavDestinati
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationIcon(item: HomeNavigationItem, index: Int, selectedIndex: Int) {
+fun NavigationIcon(item: NavigationItem, index: Int, selectedIndex: Int) {
     BadgedBox(
         badge = { BadgeForItem(item) }
     ) {
@@ -61,7 +61,7 @@ fun NavigationIcon(item: HomeNavigationItem, index: Int, selectedIndex: Int) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BadgeForItem(item: HomeNavigationItem) {
+fun BadgeForItem(item: NavigationItem) {
     when {
         item.badgeCount != null -> Badge { Text(text = item.badgeCount.toString()) }
         item.hasNews -> Badge()
@@ -76,14 +76,14 @@ fun navigateToDestination(navController: NavHostController, index: Int, route: S
 }
 
 val items = listOf(
-    HomeNavigationItem.Browse,
-    HomeNavigationItem.Explore,
-    HomeNavigationItem.Notification,
-    HomeNavigationItem.More,
+    NavigationItem.Browse,
+    NavigationItem.Explore,
+    NavigationItem.Notification,
+    NavigationItem.More,
 )
 
 
-sealed class HomeNavigationItem(
+sealed class NavigationItem(
     val route: String,
     val title: String,
     val selectedIcon: ImageVector,
@@ -91,7 +91,7 @@ sealed class HomeNavigationItem(
     val hasNews: Boolean,
     val badgeCount: Int? = null
 ) {
-    object Browse : HomeNavigationItem(
+    object Browse : NavigationItem(
         route = "browse",
         title = "Browse",
         selectedIcon = Icons.Filled.Home,
@@ -99,7 +99,7 @@ sealed class HomeNavigationItem(
         hasNews = false
     )
 
-    object Explore : HomeNavigationItem(
+    object Explore : NavigationItem(
         route = "explore",
         title = "Explore",
         selectedIcon = Icons.Filled.List,
@@ -107,7 +107,7 @@ sealed class HomeNavigationItem(
         hasNews = true
     )
 
-    object Notification : HomeNavigationItem(
+    object Notification : NavigationItem(
         route = "notification",
         title = "Notices",
         selectedIcon = Icons.Filled.Notifications,
@@ -116,9 +116,16 @@ sealed class HomeNavigationItem(
         badgeCount = 6
     )
 
-    object More : HomeNavigationItem(
+    object More : NavigationItem(
         route = "more",
         title = "More",
+        selectedIcon = Icons.Filled.MoreVert,
+        unselectedIcon = Icons.Outlined.MoreVert,
+        hasNews = true
+    )
+    object Detail : NavigationItem(
+        route = "detail",
+        title = "Detail",
         selectedIcon = Icons.Filled.MoreVert,
         unselectedIcon = Icons.Outlined.MoreVert,
         hasNews = true
@@ -134,21 +141,21 @@ sealed class RootNavigationItem(
     val hasNews: Boolean,
     val badgeCount: Int? = null
 ) {
-    object Root : HomeNavigationItem(
+    object Root : NavigationItem(
         route = "root",
         title = "Root",
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
         hasNews = false
     )
-    object DetailPage : HomeNavigationItem(
+    object DetailPage : NavigationItem(
         route = "detail",
         title = "Root",
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
         hasNews = false
     )
-    object Reader : HomeNavigationItem(
+    object Reader : NavigationItem(
         route = "root",
         title = "Root",
         selectedIcon = Icons.Filled.Home,

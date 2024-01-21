@@ -119,13 +119,13 @@ fun SearchBar(
 @Composable
 fun DetailPageTopBar(
     navController: NavHostController,
-    scrollBehavior: TopAppBarScrollBehavior,
+    scrollBehavior: TopAppBarScrollBehavior
 ) {
-    val searchText = remember { mutableStateOf("") }
+    println(scrollBehavior)
     TopAppBar(
         title = {  },
         navigationIcon = {
-            IconButton(onClick = { navController.navigate("home") }) {
+            IconButton(onClick = { navController.navigate(NavigationItem.Browse.route) }) {
                 Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Localized description")
             }
         },
