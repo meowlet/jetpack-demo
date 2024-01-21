@@ -38,7 +38,7 @@ fun BottomBar(navController: NavHostController, currentDestination: NavDestinati
             val isSelected = currentDestination?.hierarchy?.any { it.route == item.route } == true
             NavigationBarItem(
                 selected = isSelected,
-                label = { Text(text = item.title, style = MaterialTheme.typography.labelMedium)},
+                label = { Text(text = item.title, style = MaterialTheme.typography.labelMedium) },
                 onClick = { navigateToDestination(navController, index, item.route) },
                 icon = { NavigationIcon(item, index, selectedIndex) }
             )
@@ -48,7 +48,7 @@ fun BottomBar(navController: NavHostController, currentDestination: NavDestinati
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationIcon(item: NavigationItem, index: Int, selectedIndex: Int) {
+fun NavigationIcon(item: HomeNavigationItem, index: Int, selectedIndex: Int) {
     BadgedBox(
         badge = { BadgeForItem(item) }
     ) {
@@ -61,7 +61,7 @@ fun NavigationIcon(item: NavigationItem, index: Int, selectedIndex: Int) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BadgeForItem(item: NavigationItem) {
+fun BadgeForItem(item: HomeNavigationItem) {
     when {
         item.badgeCount != null -> Badge { Text(text = item.badgeCount.toString()) }
         item.hasNews -> Badge()
@@ -76,14 +76,14 @@ fun navigateToDestination(navController: NavHostController, index: Int, route: S
 }
 
 val items = listOf(
-    NavigationItem.Browse,
-    NavigationItem.Explore,
-    NavigationItem.Notification,
-    NavigationItem.More,
+    HomeNavigationItem.Browse,
+    HomeNavigationItem.Explore,
+    HomeNavigationItem.Notification,
+    HomeNavigationItem.More,
 )
 
 
-sealed class NavigationItem(
+sealed class HomeNavigationItem(
     val route: String,
     val title: String,
     val selectedIcon: ImageVector,
@@ -91,7 +91,7 @@ sealed class NavigationItem(
     val hasNews: Boolean,
     val badgeCount: Int? = null
 ) {
-    object Browse : NavigationItem(
+    object Browse : HomeNavigationItem(
         route = "browse",
         title = "Browse",
         selectedIcon = Icons.Filled.Home,
@@ -99,7 +99,7 @@ sealed class NavigationItem(
         hasNews = false
     )
 
-    object Explore : NavigationItem(
+    object Explore : HomeNavigationItem(
         route = "explore",
         title = "Explore",
         selectedIcon = Icons.Filled.List,
@@ -107,7 +107,7 @@ sealed class NavigationItem(
         hasNews = true
     )
 
-    object Notification : NavigationItem(
+    object Notification : HomeNavigationItem(
         route = "notification",
         title = "Notices",
         selectedIcon = Icons.Filled.Notifications,
@@ -116,12 +116,44 @@ sealed class NavigationItem(
         badgeCount = 6
     )
 
-    object More : NavigationItem(
+    object More : HomeNavigationItem(
         route = "more",
         title = "More",
         selectedIcon = Icons.Filled.MoreVert,
         unselectedIcon = Icons.Outlined.MoreVert,
         hasNews = true
+    )
+}
+
+
+sealed class RootNavigationItem(
+    val route: String,
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val hasNews: Boolean,
+    val badgeCount: Int? = null
+) {
+    object Root : HomeNavigationItem(
+        route = "root",
+        title = "Root",
+        selectedIcon = Icons.Filled.Home,
+        unselectedIcon = Icons.Outlined.Home,
+        hasNews = false
+    )
+    object DetailPage : HomeNavigationItem(
+        route = "detail",
+        title = "Root",
+        selectedIcon = Icons.Filled.Home,
+        unselectedIcon = Icons.Outlined.Home,
+        hasNews = false
+    )
+    object Reader : HomeNavigationItem(
+        route = "root",
+        title = "Root",
+        selectedIcon = Icons.Filled.Home,
+        unselectedIcon = Icons.Outlined.Home,
+        hasNews = false
     )
 }
 
